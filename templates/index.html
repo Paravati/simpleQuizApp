@@ -6,6 +6,14 @@
 </head>
 <body>
     <h1>Python simple quiz app</h1>
+
+    <!--wyświetlamy komunikaty z funkcji flash-->
+    <p>
+        {% for message in get_flashed_messages() %}
+            {{ message }}
+        {% endfor %}
+    </p>
+
     <!--formularz z quizem-->
     <form method="POST">
     <!-- Przegladamy liste pytań-->

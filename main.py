@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+from flask import request, redirect, url_for, flash
 
 app = Flask(__name__)
 
@@ -22,8 +23,21 @@ DANE = [{
     'odpok': '125cm'},
 ]
 
-@app.route('/')
+@app.route('/', methods =['GET', 'POST'])
 def index():
+    if request=='POST':
+        punkty = 0
+        odpowiedzi = request.form()
+
+        for pnr, odp in odpowiedzi.items():
+            if odp == DANE[int(pnr)]['odpok']:
+                punkty+=1
+
+        print("punkty: " + punkty)
+        flash('Liczba poprawnych odpowiedzi, to: {0}'.format(punkty))
+        return redirect(url_for('index'))
+
+
     return render_template('index.html', pytania=DANE)
 
 
